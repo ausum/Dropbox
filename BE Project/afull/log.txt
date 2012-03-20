@@ -1,0 +1,35 @@
+HTTP/1.0 200 OK
+Server: nginx/1.0.4
+Date: Mon, 23 Jan 2012 15:02:18 GMT
+Content-Type: application/xml; charset=utf-8
+Status: 200 OK
+X-RateLimit-Limit: 60
+ETag: "0d1daaa787eed91d9867593dc5dc859e"
+X-Frame-Options: deny
+X-RateLimit-Remaining: 59
+X-Runtime: 15
+Content-Length: 698
+Cache-Control: private, max-age=0, must-revalidate
+X-Cache: MISS from wifipict.pictlocal.com
+X-Cache-Lookup: MISS from wifipict.pictlocal.com:3128
+Via: 1.0 wifipict.pictlocal.com (squid/3.1.15)
+Connection: keep-alive
+
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+  <name>Pravin Nagare</name>
+  <company nil="true"></company>
+  <gravatar-id>1a4ec477f217b2a05b00d81564c1ebb5</gravatar-id>
+  <location nil="true"></location>
+  <created-at type="datetime">2011-07-14T05:15:55-07:00</created-at>
+  <blog nil="true"></blog>
+  <public-gist-count type="integer">0</public-gist-count>
+  <public-repo-count type="integer">2</public-repo-count>
+  <following-count type="integer">0</following-count>
+  <id type="integer">914905</id>
+  <permission nil="true"></permission>
+  <type>User</type>
+  <followers-count type="integer">0</followers-count>
+  <login>Pravin-Nagare</login>
+  <email>nagarepravin30@gmail.com</email>
+</user>

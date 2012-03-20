@@ -1,0 +1,64 @@
+#!/usr/bin/env python
+
+from tornado.httpserver import HTTPServer
+from tornado.ioloop import IOLoop
+from tornado.web import Application
+from tornado.websocket import WebSocketHandler
+import MySQLdb as mdb
+import os
+
+
+class Main(WebSocketHandler):
+	def get(self):
+		self.render("login.html");
+
+class User(WebSocketHandler):
+        def open(self):
+            print "New connection opened."
+
+        def on_message(self, message):
+			uname,email,pwd=message.split(",")
+			
+			#get registration info
+			os.system("curl -i http://github.com/api/v2/xml/user/email/"+email+" > tempAcc.txt")
+			res=os.system("./uname tempAcc.txt > tmpAcc.txt")
+			print res
+			fp=open("tmpAcc.txt","r")
+			
+			Actual=str(fp.readline())
+			fp.close()
+			Actual=Actual.strip()
+			print Actual
+			print uname
+			print uname==str(Actual)
+			#check validity
+			if uname==str(Actual):
+				print "registration is process"
+				try:
+					con = mdb.connect('localhost', 'root','amarok18', 'testdb');
+					global cur
+					cur = con.cursor()
+
+				except mdb.Error, e:
+					print "Error %d: %s" % (e.args[0],e.args[1])
+					sys.exit(1)
+				#insert into database
+				try:
+					query="insert into user values('"+uname+"','"+email+"','"+pwd+"')"
+					print query
+					cur.execute(query)
+				except:
+					self.write_message("Account Already Exists..")
+				
+				#check insertion status
+#				cur.execute("SELECT pwd FROM user where uname=%s",uname)
+				self.write_message("Registered")
+			else:
+				self.write_message("sorry...try again")
+
+        def on_close(self):
+                print "Connection closed."
+
+print "Server started."
+HTTPServer(Application([(r"/register", User)],debug=True)).listen(7777)
+IOLoop.instance().start()

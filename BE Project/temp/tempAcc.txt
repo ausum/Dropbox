@@ -1,0 +1,32 @@
+HTTP/1.1 200 OK
+Server: nginx/1.0.12
+Date: Fri, 17 Feb 2012 15:20:38 GMT
+Content-Type: application/xml; charset=utf-8
+Connection: close
+Status: 200 OK
+X-RateLimit-Limit: 60
+ETag: "ddff9eabf81569b3430f876b659dabef"
+X-Frame-Options: deny
+X-RateLimit-Remaining: 58
+X-Runtime: 35
+Content-Length: 681
+Cache-Control: private, max-age=0, must-revalidate
+
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+  <name>Saumya</name>
+  <company nil="true"></company>
+  <gravatar-id>a4e7ef61908438641d27d390a992af24</gravatar-id>
+  <location>Pune</location>
+  <created-at type="datetime">2011-12-22T21:28:20-08:00</created-at>
+  <blog nil="true"></blog>
+  <public-gist-count type="integer">0</public-gist-count>
+  <public-repo-count type="integer">3</public-repo-count>
+  <following-count type="integer">0</following-count>
+  <id type="integer">1281478</id>
+  <permission nil="true"></permission>
+  <type>User</type>
+  <followers-count type="integer">0</followers-count>
+  <login>saumya-nair</login>
+  <email>saumyanair24@gmail.com</email>
+</user>

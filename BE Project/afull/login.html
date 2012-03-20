@@ -1,0 +1,143 @@
+<html>
+<head>
+<style type="text/css" media="screen">
+    body {
+        overflow: hidden;
+    }
+    
+    #editor { 
+        margin: 0;
+        position: absolute;
+        top: 100;
+        bottom: 150;
+        left: 170;
+        right: 0;
+    }
+  </style>
+<script type="text/javascript">
+
+var l ="Select";
+var flag;
+
+var ws=new WebSocket("ws://localhost:7777/compile");
+ws.onopen=function(){
+console.log("connection opened!");	
+};
+
+ws.onmessage=function(evt){
+	var a = evt.data.split("//&//")
+	var editor = ace.edit("editor");
+	editor.getSession().setValue(a[0]);
+	document.getElementById('output').value=a[1];
+	if(l.match("C")||l.match("CPP"))
+	{
+		var JavaScriptMode = ace.require("ace/mode/c_cpp").Mode;
+		editor.getSession().setMode(new JavaScriptMode());
+	}
+	else if(l.match("Python"))
+	{
+		var JavaScriptMode = ace.require("ace/mode/python").Mode;
+		editor.getSession().setMode(new JavaScriptMode());
+	}
+	else if(l.match("Java"))
+	{
+		var JavaScriptMode = ace.require("ace/mode/java").Mode;
+		editor.getSession().setMode(new JavaScriptMode());
+	}
+	else if(l.match("Ruby"))
+	{
+		var JavaScriptMode = ace.require("ace/mode/ruby").Mode;
+		editor.getSession().setMode(new JavaScriptMode());
+	}
+};
+		
+ws.onerror = function(e){
+console.log("error ! = ");
+console.log(e);
+}
+	
+function sendCode()
+{
+	alert("sending");
+	var editor = ace.edit("editor");
+	alert(l);
+	/*var a=editor.getSession().getValue();
+	for(var i=0;i<a.length;i++)
+	{
+		alert(a[i]);
+	}*/
+	if(l.match("Select"))
+		alert("Please select a language");
+	else
+		ws.send(l + "//&//" + editor.getSession().getValue() + "//&//" + document.getElementById('input').value);
+}
+
+function selectlang()
+{
+	l = document.getElementById("lang").value
+	//var editor = ace.edit("editor");
+	if(l.match("C")||l.match("CPP"))
+	{
+		var JavaScriptMode = ace.require("ace/mode/c_cpp").Mode;
+		editor.getSession().setMode(new JavaScriptMode());
+	}
+	else if(l.match("Python"))
+	{
+		var JavaScriptMode = ace.require("ace/mode/python").Mode;
+		editor.getSession().setMode(new JavaScriptMode());
+	}
+	else if(l.match("Java"))
+	{
+		var JavaScriptMode = ace.require("ace/mode/java").Mode;
+		editor.getSession().setMode(new JavaScriptMode());
+	}
+	else if(l.match("Ruby"))
+	{
+		var JavaScriptMode = ace.require("ace/mode/ruby").Mode;
+		editor.getSession().setMode(new JavaScriptMode());
+	}	
+}
+</script>
+</head>
+<body>
+<script src="{{ static_url('src/ace-noconflict.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{static_url('src/theme-chrome-noconflict.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{static_url('src/mode-c_cpp-noconflict.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{static_url('src/mode-java-noconflict.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{static_url('src/mode-python-noconflict.js') }}" type="text/javascript" charset="utf-8"></script>
+<script src="{{static_url('src/mode-ruby-noconflict.js') }}" type="text/javascript" charset="utf-8"></script>
+
+<script>
+window.onload = function() {
+    var editor = ace.edit("editor");
+    editor.setTheme("ace/theme/chrome");
+    
+    var JavaScriptMode = ace.require("ace/mode/c_cpp").Mode;
+    editor.getSession().setMode(new JavaScriptMode());
+    
+};
+</script>
+<span id="scrollmenu" style="position:absolute;left:10px;top:100px">
+<select id="lang" onchange=selectlang()>
+  <option>Select</option>
+  <option>C</option>
+  <option>CPP</option>
+  <option>Python</option>
+  <option>Java</option>
+  <option>Ruby</option>
+</select>
+</span>
+
+<span id="scrollmenu" style="position:absolute;left:10px;top:140px">
+<input type="button" value="Compile" onclick="sendCode()"/>
+</span>
+
+<div id="editor"></div>
+<span id="scrollmenu" style="position:absolute;left:170px;top:450px">
+	<textarea align="bottom" id="input" rows="10" cols="67"></textarea>
+</span>
+<span id="scrollmenu" style="position:absolute;left:770px;top:450px">
+	<textarea align="bottom" id="output" name = "output" rows="10" cols="67"></textarea>
+</span>
+</body>
+</html>

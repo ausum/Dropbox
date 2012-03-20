@@ -1,0 +1,32 @@
+HTTP/1.1 200 OK
+Server: nginx/1.0.12
+Date: Thu, 08 Mar 2012 16:23:01 GMT
+Content-Type: application/xml; charset=utf-8
+Connection: close
+Status: 200 OK
+X-RateLimit-Limit: 60
+ETag: "e84bc798761ed9174804cbc311290502"
+X-Frame-Options: deny
+X-RateLimit-Remaining: 58
+X-Runtime: 25
+Content-Length: 700
+Cache-Control: private, max-age=0, must-revalidate
+
+<?xml version="1.0" encoding="UTF-8"?>
+<user>
+  <name>Solomon Peter</name>
+  <company nil="true"></company>
+  <gravatar-id>b77f7173fbf5e4fae7e62075e6361c37</gravatar-id>
+  <location nil="true"></location>
+  <created-at type="datetime">2011-07-13T10:21:44-07:00</created-at>
+  <blog nil="true"></blog>
+  <public-gist-count type="integer">0</public-gist-count>
+  <public-repo-count type="integer">5</public-repo-count>
+  <following-count type="integer">0</following-count>
+  <id type="integer">913226</id>
+  <permission nil="true"></permission>
+  <type>User</type>
+  <followers-count type="integer">0</followers-count>
+  <login>SolomonPeter26</login>
+  <email>peterkingsley26@gmail.com</email>
+</user>

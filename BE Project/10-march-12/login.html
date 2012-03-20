@@ -1,0 +1,174 @@
+<html>
+<head>
+<script type="text/javascript" src="{{static_url('jquery.js')}}"></script>
+<script type="text/javascript">
+//web socket implementation
+
+var ws=new WebSocket("ws://localhost:7777/register");
+		ws.onopen=function(){
+			console.log("connection opened!");	
+		};
+		ws.onmessage=function(evt){
+			setStatus(evt.data);
+		};
+		ws.onerror = function(e){
+			console.log("error ! = ");
+			console.log(e);
+		}
+$(document).ready(function(){
+
+//slide down
+  $(".flip").click(function(){
+    $(".registerForm").slideToggle("slow");
+  });
+  
+  
+//register button and slide up
+  $("#register").click(function(){
+  	var data=$("#rname").val()+","+$("#remail").val()+","+$("#rpwd").val();
+  	setStatus("Working...");
+  	ws.send(data);
+  	$(".registerForm").slideUp("fast");
+  	});
+  	
+  //cancel registration
+   $("#BCancel").click(function(){
+  	$(".registerForm").slideUp("fast");
+  	setStatus("Cancelling");
+  	});
+  
+  
+});
+function setStatus(val)
+{
+	document.getElementById('Status').innerHTML=val;
+}
+</script>
+<style type="text/css"> 
+div.registerForm,p.flip
+{
+position:absolute;
+right:0px;
+width:405px;
+margin:10px;
+padding:2px;
+text-align:center;
+background:#e5eecc;
+border:solid 2px #c3c3c3;
+}
+div.registerForm
+{
+height:130px;
+display:none;
+}
+</style>
+
+<script type="text/javascript">
+	var isRegistered=false;
+	maxPic = 5;
+count = 1;
+function init()
+{
+	prev1 = new Image (50,25);
+	prev1.src = "{{static_url('previous.jpg')}}";
+	prev2 = new Image (50,25);
+	prev2.src = "{{static_url('previous.jpg')}}";
+
+	next1 = new Image (50,25);
+	next1.src = "{{static_url('next.jpg')}}";
+	next2 = new Image (50,25);
+	next2.src = "{{static_url('next.jpg')}}";
+
+
+	p1 = new Image (200,100);
+	p1.src = "{{static_url('git.jpg')}}";
+	p1.title="Provides Git Integration for version Control"
+
+	p2 = new Image (200,100);
+	p2.src = "{{static_url('interactivity.jpg')}}";
+	p2.title="Output is Highly Interactive"
+	
+	p3 = new Image (200,100);
+	p3.src = "{{static_url('websocket.jpg')}}";
+	p3.title="Reliable and Real-time data through Web-Sockets"
+
+	p4 = new Image (200,100);
+	p4.src = "{{static_url('fast.jpg')}}";
+	p4.title="Non-blocking response"
+
+	p5 = new Image (200,100);
+	p5.src = "{{static_url('draft.jpg')}}";
+	p5.title="Reliabilty from restoring of deleted files"
+}
+function next() 
+{
+	count++;
+	if (count > maxPic) 
+	{
+	count = 1;
+	}
+	set();
+}
+function back()
+{
+	count--;
+	if (count == 0) 
+	{
+	count = maxPic;
+	}
+	set();
+}
+function set()
+{
+	eval("document.p.src=p" + count + ".src");
+	eval("document.p.title=p" + count + ".title");
+	document.getElementById('status').value=eval("p"+count+".title");
+}
+function setCookie()
+{
+var c_name="username";
+var value=document.getElementById("uname").value;
+var expiredays=365;
+var exdate=new Date();
+exdate.setDate(exdate.getDate()+expiredays);
+document.cookie=c_name+ "=" +escape(value)+
+((expiredays==null) ? "" : ";expires="+exdate.toGMTString());
+alert("set");
+}
+
+</script>
+
+</head>
+<body onload="init()">
+	<div id="Status" align="center">Welcome To ExeCode</div>
+	<form name="login" method="post" action="/login" align="right" id="loginForm">
+	<div id="login" align="right">
+		<br/>
+		<input type="text" name="uname" id="uname" value="Your User-name"/>
+		<input type="password" name="pwd" value="Your password" id="pwd" onfocus="change('pwd')"/>
+		<input type="submit" value="Login" id="BLogin" onclick="setCookie()"/><br/>
+		<p class="flip"">Register</p>
+	
+	</div>
+	<div class="registerForm" align="right">
+		<input type="text" id="rname" value="Git user-name"/><br/>
+		<input type="text" id="remail" value="Git Email-Id"/><br/>
+		<input type="password" id="rpwd" value="Git password"/><br/>
+		<input type="password" id=rcpwd" value="Confirm password"/><br/>
+		<div class="button">
+			<input type="button" id="register" value="Register"/>
+			<input type="button" id="BCancel" value="Cancel"/>
+		</div>
+	</div>
+	</form>
+		<center><table border=0><tr><td align=center width=300><font color=white face="Arial, Helvetica" size="+1">Features</font><br><br>
+<table border=0><tr>
+<td><img src="{{static_url('previous.jpg')}}" onmouseover="back()" onclick="back()"  width="50" height="35" border="0" name="prev"></td>
+<td><fieldset>
+<img name=p src="{{static_url('git.jpg')}}" title="Welcome to ExeCode" border=0 width="400" height="300"></legend><br>
+<b><input type="text" size="48" style="color:#0000FF" readonly="true" id="status" align="middle" value="Welcome to ExeCode"/></b></td>
+<td><img src="{{static_url('next.jpg')}}" onmouseover="next()"  onclick="back()" width="50" height="35" border="0" name="nxt"></td>
+</tr></table><br>
+
+</body>
+</html>

@@ -1,0 +1,8 @@
+user table :
+create table user(user varchar(20), email varchar(30), pwd varchar(20));
+
+project table:
+create table project(name varchar(30), descr varchar(100), owner varchar(20));
+
+invitaions table:
+create table invitations(sender varchar(30), project varchar(30), receiver varchar(30), senton varchar(10), status varchar(10));

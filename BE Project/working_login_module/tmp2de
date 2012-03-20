@@ -1,0 +1,21 @@
+Wednesday 15 February 2012 12:42:13 AM IST 
+
+			"""1. split message done
+			2. validate account *******triming white spaces-prob
+			3.add values to database
+			
+						print op
+			mail=self.get_argument('rEmail')
+			print mail
+			#git auth cmd > git.txt
+			os.system("./uname git.txt > uname.txt")
+			fp=open("uname.txt","r")
+			uname=fp.readline()
+			fp.close()
+			if uname==self.get_argument('username'):
+				print "registered"
+
+			
+#			self.get_argument( """
+
+

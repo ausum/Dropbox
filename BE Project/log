@@ -1,0 +1,4 @@
+create table log(details varchar(100), date varchar(10));
+create trigger logTrigger after insert on invitations i, user u, project p for each row 
+{
+	insert into log(
